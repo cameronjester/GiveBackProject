@@ -1,0 +1,81 @@
+---
+title: "Natural Disaster Prepardness Toolkit and Resources"
+image: 
+links:
+  - label: Financial
+    url: "https://linkedin.com/"
+  - label: Starter
+    url: "https://twitter.com/"
+  - label: Space Saver
+    url: "https://github.com/"
+  - label: Additional Resources
+    url: "mailto:email@email.com"
+output:
+  postcards::jolla_blue
+---
+
+
+```{r}
+library(dplyr)
+library(infer)
+library(tidyverse)
+library(readxl)
+```
+
+```{r}
+DisasterSurvey <- read_excel("~/Desktop/GirlsWhoCode/DisasterSurvey.xlsx")
+#View(Copy_of_Natural_Disaster_Resource_Awareness_Among_College_Students_in_Boston_Survey_Responses_2)
+```
+
+
+
+```{r}
+DisasterSurvey%>%
+group_by(`Comments`)%>%  
+  summarize(count = n()) %>%
+  filter(count >1)
+
+
+```
+*need to figure out how to exlude the "N/A", "no", "none" from this filter 
+
+
+
+```{r}
+cleaned_data = DisasterSurvey %>%
+  filter(if_any(Comments, ~ !(.x %in% c("Better emergency drills and evaluation mechanisms need to be established.", "Earthquake-resistant and disaster-resistant infrastructure should be strengthened.", "Emergency management of public transport systems needs to be strengthened.", "I hope there will be more tutorials and explanations to help us.", "I hope to increase the focus on vulnerable groups and people with special needs.", "It is hoped that more emergency medical services will be provided.", "It is hoped that more emergency power and energy support will be provided.", "More emergency food and water supplies should be made available.", "Use more government resources or other resources to promote the project", "Use more government resources or other resources to promote the project.", "We will strengthen care and protection for vulnerable groups.", "eonrdodom@gmail.com", "practical", "各个地方都需要准备充分", "Boston Emergency planning resources should be regularly evaluated and improved to ensure they are responsive to changing emergencies and needs. This may involve regular exercises and simulations to test the effectiveness and feasibility of resources", "Boston emergency planning resources should be as diverse and comprehensive as possible to respond to a variety of emergencies. This includes providing different types of supplies, equipment and expertise to meet the needs of different populations and different emergencies", "Emergency planning resources should be reliable and quickly available to those in need during an emergency. This may involve the establishment of effective material storage and equipment maintenance mechanisms to ensure the timely availability of resources", "Establish an Emergency Command Center: The City of Boston may establish a dedicated emergency command center to coordinate and direct the city's emergency response efforts. The center should have modern communication equipment and information systems to collect, analyze and release all kinds of emergency information in a timely manner, and provide accurate guidance and help for government departments and citizens.", "Strengthen information dissemination and publicity education: The Boston City government should use various media and channels to strengthen the popularization and publicity of disaster prevention and reduction knowledge, and improve the awareness of disaster prevention among citizens. At the same time, establish a sound information release mechanism to ensure that information can be quickly and accurately transmitted to the public when emergencies occur.", "Strengthen the construction of emergency response team: Boston City government should increase the training and support of emergency response team, improve the professional quality and response ability of emergency response team. At the same time, establish and improve the incentive mechanism of the emergency team to attract more outstanding talents to join the emergency work.", "The effective use of Boston's emergency planning resources may require public awareness and education. This includes providing relevant training and guidance to help people understand how to use and access emergency resources and take appropriate action in an emergency", "When it comes to contingency planning, I think there needs to be transparency and fairness in the process to ensure that everyone has access to the appropriate resources and support."))))
+
+```
+
+```{r}
+write_csv(cleaned_data, file = "clean_data.csv")
+```
+
+
+
+```{r}
+ggplot(data = cleaned_data, aes(x = `Emerency_Kit_Intention`)) + geom_histogram(stat = "count") +
+            labs(x = "Emergency Kit Barriers", y = "Count", title = "Histogram of...." ) 
+```
+
+
+```{r}
+barriers_count <- read_excel("~/Desktop/GirlsWhoCode/barriers_count.xlsx")
+```
+
+
+```{r}
+ggplot(data = barriers_count, aes(x = Barrier , fill = Barrier)) + geom_histogram(stat = "count") +
+            labs(y = "Count", title = "Histogram of...." ) 
+```
+
+
+
+
+
+
+
+
+
+
+
